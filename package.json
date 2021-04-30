@@ -1,120 +1,104 @@
 {
 	"name": "autographa",
-	"version": "2.0.0",
+	"productName": "autographa-editor",
+	"description": "A Bible translation editor for everyone.",
+	"email": "mathew.joel@protonmail.com",
 	"author": "Friends of Agape <mathew.joel@protonmail.com>",
+	"version": "2.0.0",
 	"license": "MIT",
-	"main": "public/electron.js",
-	"homepage": ".",
-	"repository": {
-		"type": "git",
-		"url": "https://github.com/friendsofagape/autographa.git"
+	"main": "main/index.js",
+	"scripts": {
+		"clean": "rimraf dist renderer/.next renderer/out",
+		"start": "electron .",
+		"dev": "next dev",
+		"test": "jest",
+		"lint": "eslint ./renderer/src",
+		"lint:fix": "eslint ./renderer/src --fix",
+		"build": "next build",
+		"maxmemory-allocation": "NODE_OPTIONS=--max_old_space_size=4096",
+		"eslint:github-action": "node ./node_modules/eslint/bin/eslint . --ignore-path .gitignore --max-warnings 0",
+		"pack-app": "npm run build && electron-builder --dir",
+		"dist": "npm run build && electron-builder -p never",
+		"postbuild": "next export"
 	},
-	"dependencies": {
-		"@material-ui/core": "^4.9.12",
-		"@material-ui/icons": "^4.9.1",
-		"@material-ui/lab": "latest",
-		"@testing-library/jest-dom": "^4.2.4",
-		"@testing-library/react": "^9.5.0",
-		"@testing-library/user-event": "^7.2.1",
-		"clsx": "1.1.1",
-		"electron-updater": "^4.3.4",
-		"localforage": "1.9.0",
-		"markdown-translatable": "^1.0.3",
-		"mobx": "5.15.4",
-		"mobx-react": "6.3.0",
-		"moment": "^2.28.0",
-		"prop-types": "15.7.2",
-		"react": "^16.13.1",
-		"react-dom": "^16.13.1",
-		"react-intl": "^4.7.6",
-		"react-scripts": "3.4.1",
-		"sweetalert": "2.1.2"
-	},
+	"eslintIgnore": [
+		"*.test.js"
+	],
 	"build": {
-		"extends": "react-cra",
-		"appId": "oa.autographa.live",
-		"publish": {
-			"provider": "github",
-			"token": "[paste token here]"
-		},
+		"asar": true,
 		"files": [
-			"build/**/*.*",
-			"public/**/*.*",
-			"node_modules/**/*",
-			"src/**/*.*"
+			"main",
+			"renderer/out"
 		],
-		"directories": {
-			"buildResources": "resources"
-		},
-		"mac": {
-			"category": "public.app-category.Utilities",
-			"target": "dmg",
-			"icon": "resources/icon.icns",
-			"type": "distribution"
-		},
 		"linux": {
 			"target": [
 				"deb"
-			],
-			"icon": "resources/icon.png"
+			]
 		}
-	},
-	"keywords": [
-		"Desktop",
-		"Bible Editor",
-		"USFM",
-		"USFM Editor",
-		"React.js",
-		"Translation",
-		"Open Source"
-	],
-	"scripts": {
-		"start": "concurrently \"npm run react-start\" \"wait-on http://localhost:3000/ && cross-env NODE_ENV=development npm run electron-start\"",
-		"electron-start": "electron .",
-		"react-start": "react-scripts start",
-		"test": "react-scripts test",
-		"eject": "react-scripts eject",
-		"lint": "eslint ./src",
-		"lint:fix": "eslint ./src --fix",
-		"build:react": "react-scripts build",
-		"build:electron": "cross-env NODE_ENV=production electron-builder -p never",
-		"build": "npm run build:react && npm run build:electron",
-		"preelectron-pack": "npm run build",
-		"maxmemory-allocation": "NODE_OPTIONS=--max_old_space_size=4096",
-		"eslint:github-action": "node ./node_modules/eslint/bin/eslint . --ignore-path .gitignore --max-warnings 0",
-		"deploy": "electron-builder build --win --publish always"
-	},
-	"jest": {
-		"moduleNameMapper": {
-			"electron": "<rootDir>/__mocks__/electron.js"
-		}
-	},
-	"browserslist": {
-		"production": [
-			">0.2%",
-			"not dead",
-			"not op_mini all"
-		],
-		"development": [
-			"last 1 chrome version",
-			"last 1 firefox version",
-			"last 1 safari version"
-		]
 	},
 	"devDependencies": {
-		"@rescripts/cli": "0.0.10",
-		"@rescripts/rescript-env": "0.0.12",
+		"@netlify/plugin-nextjs": "^3.0.3",
+		"@tailwindcss/jit": "0.1.18",
+		"@testing-library/dom": "^7.25.0",
+		"@testing-library/jest-dom": "^5.11.4",
+		"@testing-library/react": "^11.0.4",
+		"@testing-library/user-event": "12.1.7",
+		"autoprefixer": "^10.2.5",
+		"babel-eslint": "^10.1.0",
+		"babel-jest": "^26.5.2",
+		"babel-plugin-istanbul": "^6.0.0",
 		"babel-plugin-react-intl": "^3.0.1",
-		"check-prop-types": "^1.1.2",
-		"concurrently": "^5.1.0",
-		"cross-env": "^7.0.2",
-		"electron": "^9.1.2",
-		"electron-builder": "^22.8.0",
-		"enzyme": "^3.11.0",
-		"enzyme-adapter-react-16": "^1.15.2",
-		"eslint-config-prettier": "^6.11.0",
-		"eslint-plugin-prettier": "^3.1.3",
+		"buffer-loader": "^0.1.0",
+		"electron": "^10.1.3",
+		"electron-builder": "^22.9.1",
+		"eslint": "^7.11.0",
+		"eslint-config-airbnb": "^18.2.0",
+		"eslint-plugin-import": "^2.22.1",
+		"eslint-plugin-jsx-a11y": "^6.3.1",
+		"eslint-plugin-prettier": "^3.1.4",
+		"eslint-plugin-react": "^7.21.4",
+		"eslint-plugin-react-hooks": "^4.1.2",
+		"eslint-plugin-simple-import-sort": "^7.0.0",
+		"jest": "^26.5.3",
+		"jest-dom": "^4.0.0",
+		"postcss": "^8.2.10",
 		"prettier": "^2.0.5",
-		"wait-on": "^4.0.2"
+		"tailwindcss": "^2.1.1"
+	},
+	"dependencies": {
+		"@headlessui/react": "^1.0.0",
+		"@heroicons/react": "^1.0.1",
+		"@material-ui/core": "^4.9.12",
+		"@material-ui/icons": "^4.9.1",
+		"@material-ui/lab": "latest",
+		"@ory/kratos-client": "^0.5.4-alpha.1",
+		"@parse/react-ssr": "0.0.1-alpha.14",
+		"@tailwindcss/forms": "^0.3.2",
+		"bible-reference-rcl": "^0.2.0",
+		"clsx": "1.1.1",
+		"electron-is-dev": "^1.1.0",
+		"electron-log": "4.2.4",
+		"electron-next": "^3.1.5",
+		"electron-updater": "^4.3.4",
+		"gitea-react-toolkit": "^1.3.5",
+		"is-electron": "^2.2.0",
+		"jsonwebtoken": "^8.5.1",
+		"localforage": "1.9.0",
+		"markdown-translatable": "^1.0.4",
+		"mobx": "5.15.4",
+		"mobx-react": "6.3.0",
+		"moment": "^2.28.0",
+		"next": "latest",
+		"next-on-netlify": "^2.6.3",
+		"nprogress": "^0.2.0",
+		"parse": "^3.1.0",
+		"prefs-rcl": "^0.1.8",
+		"prop-types": "15.7.2",
+		"raw-loader": "^4.0.2",
+		"react": "^16.13.1",
+		"react-dom": "^16.13.1",
+		"react-intl": "^4.7.6",
+		"sweetalert": "2.1.2",
+		"winston": "^3.3.3"
 	}
 }
