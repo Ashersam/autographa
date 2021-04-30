@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="utf-8" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+	<meta name="viewport" content="width=device-width, initial-scale=1" />
+	<meta name="description" content="" />
+	<meta name="author" content="" />
+	<p>test got fork</p>
+	<style type="text/css">
+		.navbar-nav.navbar-center {
+			position: absolute;
+			left: 50%;
+			transform: translatex(-50%);
+		}
+	</style>
+	<style>
+		#notification {
+			position: fixed;
+			bottom: 20px;
+			left: 20px;
+			width: 200px;
+			padding: 20px;
+			border-radius: 5px;
+			background-color: white;
+			box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+		}
+
+		.hidden {
+			display: none;
+		}
+	</style>
+	<title>
+		Autographa
+	</title><p id="version"></p>
+	<link rel="icon" href="../../favicon.ico" />
+	<link rel="stylesheet" href="./loader.css" />
+</head>
+
+<body style="margin: 0px;">
+	<div id="notification" class="hidden">
+		<p id="message"></p>
+		<button id="close-button" onClick="closeNotification()">
+			Close
+		</button>
+		<button id="restart-button" onClick="restartApp()" class="hidden">
+			Restart
+		</button>
+	</div>
+	<div id="root">
+		<div id="app">
+			<div id="loader-wrapper">
+				<div id="loader"></div>
+				<div class="loader-section section-left"></div>
+				<div class="loader-section section-right"></div>
+			</div>
+		</div>
+	</div>
+	<script>
+		if (typeof module === 'object') {
+			window.module = module;
+			module = undefined;
+		}
+	</script>
+	<script>
+		if (window.module) module = window.module;
+	</script>
+</body>
+
+</html>
